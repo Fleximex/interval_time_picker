@@ -31,7 +31,7 @@ showIntervalTimePicker(
 );
 ```
 
-## Example
+## Explanation
 
 This package adds two parameters:
 * `interval`
