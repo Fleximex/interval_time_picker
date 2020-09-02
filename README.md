@@ -1,7 +1,5 @@
 # Interval Time Picker
 
-[![pub package](https://img.shields.io/pub/v/date_time_picker.svg)](https://pub.dartlang.org/packages/date_time_picker)
-
 This package modifies the 1.20.2 release of the default Flutter Time Picker widget\
 by adding interval options.
 
@@ -41,10 +39,10 @@ This package adds two parameters:
 * `visibleStep`
 
 `interval` is the steps the Interval Time Picker uses when validating the\
-chosen time as well as the steps it rounds off to.
+chosen time as well as the steps it rounds off to.\
 The default and minimum value is 1. The maximum is 30.
 
-It is actually possible to also use an interval that is not a factor of 60.
+It is actually possible to also use an interval that is not a factor of 60.\
 So i.e., if you are weird and want to use 7 you can use that. In that case\
 The highest pickable number is 56 and going higher will pick 0.
 
@@ -52,8 +50,8 @@ This package also fixes the issue that individual minutes are only selectable\
 by dragging the ring: [Flutter issue #62424](https://github.com/flutter/flutter/issues/62424)
 
 `visibleStep` are the steps that are visible on the ring. Choose the steps\
-by using the `VisibleStep` enum.
-The options are a factor of 60 with 5 being the lowest and 30 being the highest.
+by using the `VisibleStep` enum.\
+The options are a factor of 60 with 5 being the lowest and 30 being the highest.\
 The default value is `VisibleStep.Fifths`.
 
 ## Disclaimer
