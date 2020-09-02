@@ -17,7 +17,7 @@ dependencies:
 In your library add the following import:
 
 ```dart
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:interval_time_picker/interval_time_picker.dart';
 ```
 
 In your project you can then call:
@@ -50,5 +50,8 @@ This package also fixes the issue that individual minutes are only selectable by
 The options are a factor of 60 with 5 being the lowest and 30 being the highest. The default value is `VisibleStep.Fifths`.
 
 ## Disclaimer
+
+If the initial minute is not a multiplication of the interval it will show that minute.
+So handle this yourself when calling `showIntervalTimePicker`.
 
 This package is only tested on Android with Flutter version 1.20.2
