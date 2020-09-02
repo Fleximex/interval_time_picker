@@ -3,8 +3,6 @@ description: A variant of the default Flutter Time Picker in which you can pick 
 version: 0.1.0
 homepage: https://github.com/Fleximex/interval_time_picker
 repository: https://github.com/Fleximex/interval_time_picker
-authors:
-  - Fleximex
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
