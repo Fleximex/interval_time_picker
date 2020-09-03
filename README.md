@@ -1,5 +1,7 @@
 # Interval Time Picker
 
+[![pub package](https://img.shields.io/pub/v/interval_time_picker.svg?label=interval_time_picker&color=blue)](https://pub.dartlang.org/packages/interval_time_picker)
+
 This package modifies the 1.20.2 release of the default Flutter Time Picker widget by adding interval options.
 
 This package was made in response to [Flutter issue #60573](https://github.com/flutter/flutter/issues/60573)
