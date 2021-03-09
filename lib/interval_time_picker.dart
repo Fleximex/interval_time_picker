@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+library interval_time_picker;
+
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -9,29 +11,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-
-import 'color_scheme.dart';
-import 'colors.dart';
-import 'constants.dart';
-import 'curves.dart';
-import 'debug.dart';
-import 'dialog.dart';
-import 'feedback.dart';
-import 'icon_button.dart';
-import 'icons.dart';
-import 'ink_well.dart';
-import 'input_border.dart';
-import 'input_decorator.dart';
-import 'material.dart';
-import 'material_localizations.dart';
-import 'material_state.dart';
-import 'text_button.dart';
-import 'text_form_field.dart';
-import 'text_theme.dart';
-import 'theme.dart';
-import 'theme_data.dart';
-import 'time.dart';
-import 'time_picker_theme.dart';
+import 'package:flutter/material.dart';
 
 // Examples can assume:
 // late BuildContext context;
@@ -915,6 +895,8 @@ class _DialPainter extends CustomPainter {
 class _Dial extends StatefulWidget {
   const _Dial({
     required this.selectedTime,
+    required this.interval,
+    required this.visibleStep,
     required this.mode,
     required this.use24HourDials,
     required this.onChanged,
@@ -924,6 +906,8 @@ class _Dial extends StatefulWidget {
        assert(use24HourDials != null);
 
   final TimeOfDay selectedTime;
+  final int interval;
+  final int visibleStep;
   final _TimePickerMode mode;
   final bool use24HourDials;
   final ValueChanged<TimeOfDay>? onChanged;
@@ -1018,10 +1002,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
       return widget.selectedTime.replacing(hour: newHour);
     } else {
       int minute = (fraction * TimeOfDay.minutesPerHour).round() % TimeOfDay.minutesPerHour;
-      if (roundMinutes) {
-        // Round the minutes to nearest 5 minute interval.
-        minute = ((minute + 2) ~/ 5) * 5 % TimeOfDay.minutesPerHour;
-      }
+      minute = ((minute + (widget.interval / 2).floor()) ~/ widget.interval) * widget.interval % TimeOfDay.minutesPerHour;
       return widget.selectedTime.replacing(minute: minute);
     }
   }
@@ -1207,20 +1188,10 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   ];
 
   List<_TappableLabel> _buildMinutes(TextTheme textTheme, Color color) {
-    const List<TimeOfDay> _minuteMarkerValues = <TimeOfDay>[
-      TimeOfDay(hour: 0, minute: 0),
-      TimeOfDay(hour: 0, minute: 5),
-      TimeOfDay(hour: 0, minute: 10),
-      TimeOfDay(hour: 0, minute: 15),
-      TimeOfDay(hour: 0, minute: 20),
-      TimeOfDay(hour: 0, minute: 25),
-      TimeOfDay(hour: 0, minute: 30),
-      TimeOfDay(hour: 0, minute: 35),
-      TimeOfDay(hour: 0, minute: 40),
-      TimeOfDay(hour: 0, minute: 45),
-      TimeOfDay(hour: 0, minute: 50),
-      TimeOfDay(hour: 0, minute: 55),
-    ];
+    List<TimeOfDay> _minuteMarkerValues = <TimeOfDay>[];
+    for (int i = 0; i < (TimeOfDay.minutesPerHour / widget.visibleStep).ceil(); i++) {
+      _minuteMarkerValues.add(TimeOfDay(hour: 0, minute: i * widget.visibleStep));
+    }
 
     return <_TappableLabel>[
       for (final TimeOfDay timeOfDay in _minuteMarkerValues)
@@ -1293,6 +1264,7 @@ class _TimePickerInput extends StatefulWidget {
   const _TimePickerInput({
     Key? key,
     required this.initialSelectedTime,
+    required this.interval,
     required this.helpText,
     required this.autofocusHour,
     required this.autofocusMinute,
@@ -1303,6 +1275,9 @@ class _TimePickerInput extends StatefulWidget {
 
   /// The time initially selected when the dialog is shown.
   final TimeOfDay initialSelectedTime;
+
+  /// The interval to be used.
+  final int interval;
 
   /// Optionally provide your own help text to the time picker.
   final String? helpText;
@@ -1319,6 +1294,7 @@ class _TimePickerInput extends StatefulWidget {
 
 class _TimePickerInputState extends State<_TimePickerInput> {
   late TimeOfDay _selectedTime;
+  late int _interval;
   bool hourHasError = false;
   bool minuteHasError = false;
 
@@ -1326,6 +1302,7 @@ class _TimePickerInputState extends State<_TimePickerInput> {
   void initState() {
     super.initState();
     _selectedTime = widget.initialSelectedTime;
+    _interval = widget.interval;
   }
 
   int? _parseHour(String? value) {
@@ -1365,6 +1342,9 @@ class _TimePickerInputState extends State<_TimePickerInput> {
     }
 
     if (newMinute >= 0 && newMinute < 60) {
+      if (newMinute % _interval != 0) {
+        return null;
+      }
       return newMinute;
     }
     return null;
@@ -1742,6 +1722,8 @@ class _TimePickerDialog extends StatefulWidget {
   const _TimePickerDialog({
     Key? key,
     required this.initialTime,
+    required this.interval,
+    required this.visibleStep,
     required this.cancelText,
     required this.confirmText,
     required this.helpText,
@@ -1754,6 +1736,12 @@ class _TimePickerDialog extends StatefulWidget {
 
   /// The entry mode for the picker. Whether it's text input or a dial.
   final TimePickerEntryMode initialEntryMode;
+
+  /// The interval for used for the choosable minutes. The default and minimum is 1. The maximum is 30.
+  final int interval;
+
+  /// The interval for the visible minutes in the dial.
+  final VisibleStep visibleStep;
 
   /// Optionally provide your own text for the cancel button.
   ///
@@ -1779,8 +1767,29 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
   void initState() {
     super.initState();
     _selectedTime = widget.initialTime;
+    _interval = widget.interval;
+    _visibleStep = _parseVisibleStep(widget.visibleStep);
     _entryMode = widget.initialEntryMode;
     _autoValidate = false;
+  }
+
+  int _parseVisibleStep(VisibleStep vs) {
+    switch (vs) {
+      case VisibleStep.Fifths:
+        return 5;
+      case VisibleStep.Sixths:
+        return 6;
+      case VisibleStep.Tenths:
+        return 10;
+      case VisibleStep.Twelfths:
+        return 12;
+      case VisibleStep.Fifteenths:
+        return 15;
+      case VisibleStep.Twentieths:
+        return 20;
+      case VisibleStep.Thirtieths:
+        return 30;
+    }
   }
 
   @override
@@ -1800,6 +1809,9 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
 
   TimeOfDay get selectedTime => _selectedTime;
   late TimeOfDay _selectedTime;
+
+  late int _interval;
+  late int _visibleStep;
 
   Timer? _vibrateTimer;
   late MaterialLocalizations localizations;
@@ -2009,6 +2021,8 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
             child: AspectRatio(
               aspectRatio: 1.0,
               child: _Dial(
+                interval: _interval,
+                visibleStep: _visibleStep,
                 mode: _mode,
                 use24HourDials: use24HourDials,
                 selectedTime: _selectedTime,
@@ -2078,6 +2092,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
               children: <Widget>[
                 _TimePickerInput(
                   initialSelectedTime: _selectedTime,
+                  interval: _interval,
                   helpText: widget.helpText,
                   autofocusHour: _autofocusHour,
                   autofocusMinute: _autofocusMinute,
@@ -2144,6 +2159,9 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
 /// determine the initial time entry selection of the picker (either a clock
 /// dial or text input).
 ///
+/// The [interval] parameter is used for setting the interval used for the Time Picker.
+/// The default and minimum is 1. The maximum is 30.
+///
 /// Optional strings for the [helpText], [cancelText], and [confirmText] can be
 /// provided to override the default values.
 ///
@@ -2191,9 +2209,11 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
 ///    date picker.
 ///  * [TimePickerThemeData], which allows you to customize the colors,
 ///    typography, and shape of the time picker.
-Future<TimeOfDay?> showTimePicker({
+Future<TimeOfDay?> showIntervalTimePicker({
   required BuildContext context,
   required TimeOfDay initialTime,
+  int interval = 1,
+  VisibleStep visibleStep = VisibleStep.Fifths,
   TransitionBuilder? builder,
   bool useRootNavigator = true,
   TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial,
@@ -2204,12 +2224,15 @@ Future<TimeOfDay?> showTimePicker({
 }) async {
   assert(context != null);
   assert(initialTime != null);
+  assert(interval >= 1 && interval <= 30);
   assert(useRootNavigator != null);
   assert(initialEntryMode != null);
   assert(debugCheckHasMaterialLocalizations(context));
 
   final Widget dialog = _TimePickerDialog(
     initialTime: initialTime,
+    interval: interval,
+    visibleStep: visibleStep,
     initialEntryMode: initialEntryMode,
     cancelText: cancelText,
     confirmText: confirmText,
@@ -2223,6 +2246,29 @@ Future<TimeOfDay?> showTimePicker({
     },
     routeSettings: routeSettings,
   );
+}
+
+enum VisibleStep {
+  /// Every 5 minutes
+  Fifths,
+
+  /// Every 6 minutes
+  Sixths,
+
+  /// Every 10 minutes
+  Tenths,
+
+  /// Every 12 minutes
+  Twelfths,
+
+  /// Every 15 minutes
+  Fifteenths,
+
+  /// Every 20 minutes
+  Twentieths,
+
+  /// Every 30 minutes
+  Thirtieths,
 }
 
 void _announceToAccessibility(BuildContext context, String message) {
