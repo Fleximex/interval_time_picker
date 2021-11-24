@@ -1,4 +1,4 @@
-## [1.0.0+2] - Wednesday 24th 2021
+## [1.0.0+3] - Wednesday 24th 2021
 
 * Null Safety release of Interval Time Picker
 * Small changes to documentation

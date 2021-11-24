@@ -14,7 +14,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  interval_time_picker: "^1.0.0"
+  interval_time_picker: ^1.0.0+3
 ```
 
 On top of your code add the following import:
@@ -39,6 +39,9 @@ showIntervalTimePicker(
 This package adds two parameters:
 * `interval`
 * `visibleStep`
+
+In most cases it is recommended to set the Interval and VisibleStep as the same:
+i.e. respectively `5` and `VisibleStep.Fifths` or `12` and `VisibleStep.Twelfths`.
 
 ##### Interval
 `interval` is the steps the Interval Time Picker uses when validating the chosen time (minutes) as well as the steps it rounds off to.\
