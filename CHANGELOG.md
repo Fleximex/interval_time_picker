@@ -1,3 +1,9 @@
-## [0.1.0] - September 2nd 2020
+## [1.0.0+2] - Wednesday 24th 2021
+
+* Null Safety release of Interval Time Picker
+* Small changes to documentation
+
+
+## [0.1.0+1] - September 2nd 2020
 
 * First release of Interval Time Picker
