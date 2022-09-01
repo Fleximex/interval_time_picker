@@ -2,10 +2,18 @@
 
 # Files and directories created by pub
 .dart_tool/
+.fvm
 .packages
 build/
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
 
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.

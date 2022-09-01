@@ -1,29 +1,35 @@
 import 'package:interval_time_picker/interval_time_picker.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Time Picker Demo',
+      title: 'Interval Time Picker Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: ColorScheme.light()),
-      home: MyHomePage(),
+      theme: ThemeData(colorScheme: const ColorScheme.light()),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+  TimeOfDay _time = const TimeOfDay(hour: 7, minute: 15);
   int _interval = 5;
-  VisibleStep _visibleStep = VisibleStep.Fifths;
+  VisibleStep _visibleStep = VisibleStep.fifths;
 
   void _selectTime() async {
     final TimeOfDay? newTime = await showIntervalTimePicker(
@@ -39,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -47,21 +54,21 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ElevatedButton(
               onPressed: _selectTime,
-              child: Text('SELECT TIME'),
+              child: const Text('SELECT TIME'),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Selected time: ${_time.format(context)}',
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Slider(
                   value: _interval.toDouble(),
                   min: 1,
-                  max: 30,
-                  divisions: 30,
+                  max: 60,
+                  divisions: 60,
                   label: _interval.toString(),
                   onChanged: (double value) {
                     setState(() {
