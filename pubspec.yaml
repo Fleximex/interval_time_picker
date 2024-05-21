@@ -1,11 +1,11 @@
 name: interval_time_picker
 description: A variant of the default Flutter Time Picker in which you can pick intervals.
-version: 2.0.0+5
+version: 3.0.0+6
 homepage: https://github.com/Fleximex/interval_time_picker
 repository: https://github.com/Fleximex/interval_time_picker
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:

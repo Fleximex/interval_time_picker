@@ -1,5 +1,6 @@
-import 'package:interval_time_picker/interval_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:interval_time_picker/interval_time_picker.dart';
+import 'package:interval_time_picker/models/visible_step.dart';
 
 void main() {
   runApp(const MyApp());
