@@ -305,7 +305,7 @@ class _HourMinuteControl extends StatelessWidget {
               text,
               style: style.copyWith(
                   color: MaterialStateProperty.resolveAs(textColor, states)),
-              textScaleFactor: 1.0,
+              textScaler: MediaQuery.textScalerOf(context),
             ),
           ),
         ),
@@ -425,7 +425,7 @@ class _StringFragment extends StatelessWidget {
             style: hourMinuteStyle.apply(
                 color: MaterialStateProperty.resolveAs(
                     textColor, <MaterialState>{})),
-            textScaleFactor: 1.0,
+            textScaler: MediaQuery.textScalerOf(context),
           ),
         ),
       ),
@@ -594,8 +594,7 @@ class _DayPeriodControl extends StatelessWidget {
       side: borderSide,
     );
 
-    final double buttonTextScaleFactor =
-        math.min(MediaQuery.of(context).textScaleFactor, 2.0);
+    const maxScaleFactor = 2.0;
 
     final Widget amButton = Material(
       color: MaterialStateProperty.resolveAs(backgroundColor, amStates),
@@ -609,7 +608,8 @@ class _DayPeriodControl extends StatelessWidget {
             child: Text(
               materialLocalizations.anteMeridiemAbbreviation,
               style: amStyle,
-              textScaleFactor: buttonTextScaleFactor,
+              textScaler: MediaQuery.textScalerOf(context)
+                  .clamp(maxScaleFactor: maxScaleFactor),
             ),
           ),
         ),
@@ -628,7 +628,8 @@ class _DayPeriodControl extends StatelessWidget {
             child: Text(
               materialLocalizations.postMeridiemAbbreviation,
               style: pmStyle,
-              textScaleFactor: buttonTextScaleFactor,
+              textScaler: MediaQuery.textScalerOf(context)
+                  .clamp(maxScaleFactor: maxScaleFactor),
             ),
           ),
         ),
@@ -1232,7 +1233,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
       painter: TextPainter(
         text: TextSpan(style: style, text: label),
         textDirection: TextDirection.ltr,
-        textScaleFactor: labelScaleFactor,
+        textScaler: MediaQuery.textScalerOf(context).clamp(maxScaleFactor: 2.0),
       )..layout(),
       onTap: onTap,
     );
@@ -1849,7 +1850,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     // TODO(rami-a): Once https://github.com/flutter/flutter/issues/67571 is
     // resolved, remove the window check for semantics being enabled on web.
     final String? hintText = MediaQuery.of(context).accessibleNavigation ||
-            WidgetsBinding.instance.window.semanticsEnabled
+            View.of(context).platformDispatcher.semanticsEnabled
         ? widget.semanticHintText
         : (focusNode.hasFocus ? null : _formattedValue);
     inputDecoration = inputDecoration.copyWith(
@@ -1862,7 +1863,8 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     return SizedBox(
       height: _kTimePickerHeaderControlHeight,
       child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        data:
+            MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
         child: UnmanagedRestorationScope(
           bucket: bucket,
           child: TextFormField(
@@ -2300,11 +2302,6 @@ class _IntervalTimePickerDialogState extends State<IntervalTimePickerDialog>
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
     final ThemeData theme = Theme.of(context);
-    // Constrain the textScaleFactor to prevent layout issues. Since only some
-    // parts of the time picker scale up with textScaleFactor, we cap the factor
-    // to 1.1 as that provides enough space to reasonably fit all the content.
-    final double textScaleFactor =
-        math.min(MediaQuery.of(context).textScaleFactor, 1.1);
 
     final double timePickerWidth;
     final double timePickerHeight;
@@ -2320,7 +2317,7 @@ class _IntervalTimePickerDialogState extends State<IntervalTimePickerDialog>
                     : _kTimePickerHeightPortraitCollapsed;
             break;
           case Orientation.landscape:
-            timePickerWidth = _kTimePickerWidthLandscape * textScaleFactor;
+            timePickerWidth = _kTimePickerWidthLandscape;
             timePickerHeight =
                 theme.materialTapTargetSize == MaterialTapTargetSize.padded
                     ? _kTimePickerHeightLandscape
@@ -2334,7 +2331,7 @@ class _IntervalTimePickerDialogState extends State<IntervalTimePickerDialog>
         timePickerHeight = _kTimePickerHeightInput;
         break;
     }
-    return Size(timePickerWidth, timePickerHeight * textScaleFactor);
+    return Size(timePickerWidth, timePickerHeight);
   }
 
   @override
