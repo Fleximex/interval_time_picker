@@ -1,3 +1,10 @@
+## [3.0.0+6]
+May 21st 2024
+
+* Upgrade to Flutter 3.22.0 (minimum required version 3.10.0)
+* Use Flutter 3.22.0's Time Picker as basis
+
+
 ## [2.0.0+5]
 September 1st 2022
 

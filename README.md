@@ -8,6 +8,7 @@ This package modifies the default Flutter Time Picker widget by adding interval 
 ## Update notes
 * Version 1.0.0 requires Dart SDK 2.12.0 (Flutter 2.0.0) or higher.
 * Version 2.0.0 requires Dart SDK 2.18.0 (Flutter 3.1.0) or higher.
+* Version 3.0.0 requires Dart SDK 3.0.0 (Flutter 3.10.0) or higher.
 * Breaking change for 2.0.0: The VisibleStep enum values now start with lowercase
 
 ## Usage
@@ -65,8 +66,18 @@ The options are a factor of 60 with 5 being the lowest and 60 (shown as 00) bein
 * If the initial minute is not a multiplication of the interval it will still pick that minute.
   So handle this yourself when calling `showIntervalTimePicker`.
 
-* For Flutter 2.0.0 until 2.10.5 use v1.1.0 of this package:\
+* For Flutter 2.0.0 until 2.10.5 use v1.1.x of this package:\
   this version modifies Flutter 2.8.0's Time Picker
 
-* For Flutter 3.1.0 or higher use v2.0.0 of this package:\
+* For Flutter 3.1.0 until 3.7.12 use v2.x.x of this package:\
   this version modifies Flutter 3.3.0's Time Picker
+
+* For Flutter 3.10.0 or higher use v3.x.x of this package:\
+  this version modifies Flutter 3.22.0's Time Picker
+
+## Contributions
+- https://github.com/markj
+- https://github.com/MarkCLinovy
+- https://github.com/nilsreichardt
+- https://github.com/hromov
+- 
