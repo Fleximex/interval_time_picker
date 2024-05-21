@@ -2724,6 +2724,8 @@ class _IntervalTimePickerDialogState extends State<IntervalTimePickerDialog>
                         autovalidateMode: _autovalidateMode.value,
                         child: _IntervalTimePicker(
                           time: widget.initialTime,
+                          interval: widget.interval,
+                          visibleStep: widget.visibleStep,
                           onTimeChanged: _handleTimeChanged,
                           helpText: widget.helpText,
                           cancelText: widget.cancelText,
