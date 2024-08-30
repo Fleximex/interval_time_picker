@@ -1,3 +1,8 @@
+## [3.0.1+7]
+August 30th 2024
+
+* Feedback dependency removed
+
 ## [3.0.0+6]
 May 21st 2024
 

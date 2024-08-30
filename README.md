@@ -18,7 +18,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  interval_time_picker: ^2.0.0+5
+  interval_time_picker: ^3.0.1+7
 ```
 
 On top of your code add the following import:
@@ -80,4 +80,3 @@ The options are a factor of 60 with 5 being the lowest and 60 (shown as 00) bein
 - https://github.com/MarkCLinovy
 - https://github.com/nilsreichardt
 - https://github.com/hromov
-- 
