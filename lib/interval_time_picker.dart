@@ -17,6 +17,7 @@ import 'package:flutter/src/material/colors.dart';
 import 'package:flutter/src/material/curves.dart';
 import 'package:flutter/src/material/debug.dart';
 import 'package:flutter/src/material/dialog.dart';
+import 'package:flutter/src/material/feedback.dart';
 import 'package:flutter/src/material/icon_button.dart';
 import 'package:flutter/src/material/icons.dart';
 import 'package:flutter/src/material/ink_well.dart';

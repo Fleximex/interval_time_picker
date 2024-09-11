@@ -1,12 +1,19 @@
-## [3.0.1+7]
+## [3.0.2+8]
+September 11th 2024
+
+* Update documentation and set minimum Flutter versions
+* Limit this version to Flutter 3.22.x
+
+
+## [3.0.1+7] - deprecated
 August 30th 2024
 
 * Feedback dependency removed
 
-## [3.0.0+6]
+## [3.0.0+6] - deprecated
 May 21st 2024
 
-* Upgrade to Flutter 3.22.0 (minimum required version 3.10.0)
+* Upgrade to Flutter 3.22.0 (minimum required version 3.22.0)
 * Use Flutter 3.22.0's Time Picker as basis
 
 
