@@ -1,3 +1,9 @@
+## [3.0.3+9]
+September 11th 2024
+
+* Limit this version to at least Flutter 3.24.0
+
+
 ## [3.0.2+8]
 September 11th 2024
 
