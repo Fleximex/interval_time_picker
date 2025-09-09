@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Interval Time Picker Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: const ColorScheme.light()),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: const ColorScheme.light(),
+      ),
       home: const MyHomePage(),
     );
   }
@@ -82,11 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
                   onChanged: (VisibleStep? newValue) {
                     if (newValue != null) {
                       setState(() {

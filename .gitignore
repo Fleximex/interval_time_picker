@@ -13,6 +13,7 @@ pubspec.lock
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+*.iml
 
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
