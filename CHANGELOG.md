@@ -1,4 +1,4 @@
-### [4.0.0+11]
+### [4.0.0+12]
 September 9th 2025
 
 * Limit this version to at least Flutter 3.35.0

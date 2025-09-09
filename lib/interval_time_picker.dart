@@ -703,8 +703,7 @@ class _AmPmButton extends StatelessWidget {
         _TimePickerModel.themeOf(context);
     final _TimePickerDefaults defaultTheme =
         _TimePickerModel.defaultThemeOf(context);
-    final Color resolvedBackgroundColor =
-        WidgetStateProperty.resolveAs<Color>(
+    final Color resolvedBackgroundColor = WidgetStateProperty.resolveAs<Color>(
       timePickerTheme.dayPeriodColor ?? defaultTheme.dayPeriodColor,
       states,
     );
@@ -1573,8 +1572,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         timePickerTheme.dialHandColor ?? defaultTheme.dialHandColor;
     final TextStyle labelStyle =
         timePickerTheme.dialTextStyle ?? defaultTheme.dialTextStyle;
-    final Color dialTextUnselectedColor =
-        WidgetStateProperty.resolveAs<Color>(
+    final Color dialTextUnselectedColor = WidgetStateProperty.resolveAs<Color>(
       timePickerTheme.dialTextColor ?? defaultTheme.dialTextColor,
       <WidgetState>{},
     );
@@ -2183,8 +2181,8 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
             defaultTheme.hourMinuteColor;
     final Color fillColor;
     if (theme.useMaterial3) {
-      fillColor = WidgetStateProperty.resolveAs<Color>(
-          startingFillColor, <WidgetState>{
+      fillColor =
+          WidgetStateProperty.resolveAs<Color>(startingFillColor, <WidgetState>{
         if (focusNode.hasFocus) WidgetState.focused,
         if (focusNode.hasFocus) WidgetState.selected,
       });
@@ -3466,8 +3464,8 @@ class _TimePickerDefaultsM2 extends _TimePickerDefaults {
   Color get dayPeriodColor {
     return WidgetStateColor.resolveWith((Set<WidgetState> states) {
       if (states.contains(WidgetState.selected)) {
-        return _colors.primary
-            .withValues(alpha: _colors.brightness == Brightness.dark ? 0.24 : 0.12);
+        return _colors.primary.withValues(
+            alpha: _colors.brightness == Brightness.dark ? 0.24 : 0.12);
       }
       // The unselected day period should match the overall picker dialog color.
       // Making it transparent enables that without being redundant and allows
@@ -3576,8 +3574,8 @@ class _TimePickerDefaultsM2 extends _TimePickerDefaults {
   Color get hourMinuteColor {
     return WidgetStateColor.resolveWith((Set<WidgetState> states) {
       return states.contains(WidgetState.selected)
-          ? _colors.primary
-              .withValues(alpha: _colors.brightness == Brightness.dark ? 0.24 : 0.12)
+          ? _colors.primary.withValues(
+              alpha: _colors.brightness == Brightness.dark ? 0.24 : 0.12)
           : _colors.onSurface.withValues(alpha: 0.12);
     });
   }
@@ -3847,10 +3845,12 @@ class _TimePickerDefaultsM3 extends _TimePickerDefaults {
           overlayColor = _colors.onPrimaryContainer;
         } else if (states.contains(WidgetState.hovered)) {
           const double hoverOpacity = 0.08;
-          overlayColor = _colors.onPrimaryContainer.withValues(alpha: hoverOpacity);
+          overlayColor =
+              _colors.onPrimaryContainer.withValues(alpha: hoverOpacity);
         } else if (states.contains(WidgetState.focused)) {
           const double focusOpacity = 0.1;
-          overlayColor = _colors.onPrimaryContainer.withValues(alpha: focusOpacity);
+          overlayColor =
+              _colors.onPrimaryContainer.withValues(alpha: focusOpacity);
         }
         return Color.alphaBlend(overlayColor, _colors.primaryContainer);
       } else {
