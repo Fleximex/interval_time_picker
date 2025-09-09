@@ -1607,11 +1607,14 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
       minuteMarkerValues
           .add(TimeOfDay(hour: 0, minute: i * widget.visibleStep));
     }
+    final Color disabledColor = Theme.of(context).disabledColor;
 
     return <_TappableLabel>[
       for (final TimeOfDay timeOfDay in minuteMarkerValues)
         _buildTappableLabel(
-          textStyle: textStyle,
+          textStyle: (timeOfDay.minute % widget.interval == 0)
+              ? textStyle
+              : textStyle!.copyWith(color: disabledColor),
           selectedValue: selectedValue,
           inner: false,
           value: timeOfDay.minute,
