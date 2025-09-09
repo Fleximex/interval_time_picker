@@ -7,31 +7,9 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-
-import 'package:flutter/src/material/button_style.dart';
-import 'package:flutter/src/material/color_scheme.dart';
-import 'package:flutter/src/material/colors.dart';
-import 'package:flutter/src/material/curves.dart';
-import 'package:flutter/src/material/debug.dart';
-import 'package:flutter/src/material/dialog.dart';
-import 'package:flutter/src/material/icon_button.dart';
-import 'package:flutter/src/material/icons.dart';
-import 'package:flutter/src/material/ink_well.dart';
-import 'package:flutter/src/material/input_border.dart';
-import 'package:flutter/src/material/input_decorator.dart';
-import 'package:flutter/src/material/material.dart';
-import 'package:flutter/src/material/material_localizations.dart';
-import 'package:flutter/src/material/material_state.dart';
-import 'package:flutter/src/material/text_button.dart';
-import 'package:flutter/src/material/text_form_field.dart';
-import 'package:flutter/src/material/text_theme.dart';
-import 'package:flutter/src/material/theme.dart';
-import 'package:flutter/src/material/theme_data.dart';
-import 'package:flutter/src/material/time.dart';
-import 'package:flutter/src/material/time_picker_theme.dart';
 
 import 'models/visible_step.dart';
 
@@ -47,39 +25,6 @@ const double _kTimePickerHeaderLandscapeWidth = 216;
 const double _kTimePickerInnerDialOffset = 28;
 const double _kTimePickerDialMinRadius = 50;
 const double _kTimePickerDialPadding = 28;
-
-/// Interactive input mode of the time picker dialog.
-///
-/// In [TimePickerEntryMode.dial] mode, a clock dial is displayed and the user
-/// taps or drags the time they wish to select. In TimePickerEntryMode.input]
-/// mode, [TextField]s are displayed and the user types in the time they wish to
-/// select.
-///
-/// See also:
-///
-/// * [showIntervalTimePicker], a function that shows a [IntervalTimePickerDialog] and returns
-///   the selected time as a [Future].
-enum TimePickerEntryMode {
-  /// User picks time from a clock dial.
-  ///
-  /// Can switch to [input] by activating a mode button in the dialog.
-  dial,
-
-  /// User can input the time by typing it into text fields.
-  ///
-  /// Can switch to [dial] by activating a mode button in the dialog.
-  input,
-
-  /// User can only pick time from a clock dial.
-  ///
-  /// There is no user interface to switch to another mode.
-  dialOnly,
-
-  /// User can only input the time by typing it into text fields.
-  ///
-  /// There is no user interface to switch to another mode.
-  inputOnly
-}
 
 // Whether the dial-mode time picker is currently selecting the hour or the
 // minute.
