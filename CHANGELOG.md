@@ -1,4 +1,12 @@
-## [3.0.3+9]
+## [3.0.4+10]
+September 9th 2024
+
+* Limit this version to not allow Flutter 3.35.x and higher
+* Add disabled TextStyle for non tappable minute markers
+* Remove TimePickerEntryMode to prevent importing ambiguity
+
+
+## [3.0.3+9] - deprecated
 September 11th 2024
 
 * Limit this version to at least Flutter 3.24.0
@@ -15,6 +23,7 @@ September 11th 2024
 August 30th 2024
 
 * Feedback dependency removed
+
 
 ## [3.0.0+6] - deprecated
 May 21st 2024

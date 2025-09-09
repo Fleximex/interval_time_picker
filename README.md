@@ -9,7 +9,7 @@ This package modifies the default Flutter Time Picker widget by adding interval 
 * Flutter 2.0.0 until 3.7.12 should use version `1.1.0+4`.
 * Flutter 3.1.0 until 3.19.6 should use version `2.0.0+5`.
 * Flutter 3.22.x should use version `3.0.2+8`.
-* Flutter 3.24.0 and higher should use version `3.0.3+9`.
+* Flutter 3.24.0 until 3.32.8 should use version `3.0.4+10`.
 
 ## Usage
 
@@ -71,3 +71,4 @@ The options are a factor of 60 with 5 being the lowest and 60 (shown as 00) bein
 - https://github.com/MarkCLinovy
 - https://github.com/nilsreichardt
 - https://github.com/hromov
+- https://github.com/harshgmx47
