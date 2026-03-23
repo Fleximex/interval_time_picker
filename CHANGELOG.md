@@ -1,3 +1,8 @@
+### [4.0.0+13]
+March 23rd 2026
+
+* Update project's license
+
 ### [4.0.0+12]
 September 9th 2025
 
